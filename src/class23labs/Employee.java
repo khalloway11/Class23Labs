@@ -1,13 +1,16 @@
 package class23labs;
 
-import org.apache.commons.lang3.builder.CompareToBuilder;
+//import org.apache.commons.lang3.builder.CompareToBuilder;
+
+import java.util.Objects;
+
 /**
  * This class represents an Employee entity that will be sorted by its
  * "natural order," defined to be by empID.
  * 
  * @author jlombardo
  */
-public class Employee implements Comparable {
+public class Employee  {
     private int empID;
     private String lastName;
     private String firstName;
@@ -26,6 +29,13 @@ public class Employee implements Comparable {
     }
 
     @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 29 * hash + Objects.hashCode(this.ssn);
+        return hash;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;
@@ -34,46 +44,62 @@ public class Employee implements Comparable {
             return false;
         }
         final Employee other = (Employee) obj;
-        if (this.empID != other.empID) {
+        if (!Objects.equals(this.ssn, other.ssn)) {
             return false;
         }
         return true;
     }
+    
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 67 * hash + this.empID;
-        return hash;
-    }
-
-
-    public int compareTo(Object other) {
-        
-        Employee o = (Employee)other;
-        
-        return new CompareToBuilder()
-               .append(this.empID, o.empID)
-               .toComparison();
-//        // NO Magic numbers! Use constants for readability!
-//        final int BEFORE = -1;
-//	final int EQUAL = 0;
-//	final int AFTER = 1;
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (obj == null) {
+//            return false;
+//        }
+//        if (getClass() != obj.getClass()) {
+//            return false;
+//        }
+//        final Employee other = (Employee) obj;
+//        if (this.empID != other.empID) {
+//            return false;
+//        }
+//        return true;
+//    }
 //
-//        Employee e = (Employee)other;
+//    @Override
+//    public int hashCode() {
+//        int hash = 7;
+//        hash = 67 * hash + this.empID;
+//        return hash;
+//    }
 //
-//        if(this.equals(e)) return EQUAL;
+//
+//    public int compareTo(Object other) {
+//        
+//        Employee o = (Employee)other;
+//        
+//        return new CompareToBuilder()
+//               .append(this.empID, o.empID)
+//               .toComparison();
+////        // NO Magic numbers! Use constants for readability!
+////        final int BEFORE = -1;
+////	final int EQUAL = 0;
+////	final int AFTER = 1;
 ////
-////        if(this.empID > e.empID) return BEFORE;
-////        if(this.empID < e.empID) return AFTER;
-//
-//        // The String class already has a compareTo implementation, so
-//        // just use that.
-//        int comparison = this.ssn.compareTo(e.getSsn());
-//        if( comparison != EQUAL) return comparison;
-//
-//        return EQUAL; // default
-    }
+////        Employee e = (Employee)other;
+////
+////        if(this.equals(e)) return EQUAL;
+//////
+//////        if(this.empID > e.empID) return BEFORE;
+//////        if(this.empID < e.empID) return AFTER;
+////
+////        // The String class already has a compareTo implementation, so
+////        // just use that.
+////        int comparison = this.ssn.compareTo(e.getSsn());
+////        if( comparison != EQUAL) return comparison;
+////
+////        return EQUAL; // default
+//    }
 
     public String getSsn() {
         return ssn;
